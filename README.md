@@ -7,18 +7,18 @@ Visualizing airports, airlines, planes, and commercial routes using data from [O
 
 ## Overview
 
-This project uses proportional symbol mapping to visualize global airport connectivity. Each airport is represented by a bubble whose size reflects the number of outgoing routes, making it easy to identify major air travel hubs across continents.
+This project uses proportional symbol mapping to visualize global airport connectivity. Each airport is represented by a bubble whose size reflects the number of outgoing routes, making it easy to identify major air travel hubs across continents. In order to develop the visualization, we relied on the [D3.js Graph Gallery's Bubble map instructions](https://d3-graph-gallery.com/bubblemap.html).
 
 ## Dataset
 
-We use a [Kaggle compilation of OpenFlights’ dataset](https://www.kaggle.com/datasets/ahmadrafiee/airports-airlines-planes-and-routes-update-2024?resource=download&select=airports.csv) containing over 10,000 data points across four CSVs:
+We used a [Kaggle compilation of OpenFlights’ dataset](https://www.kaggle.com/datasets/ahmadrafiee/airports-airlines-planes-and-routes-update-2024?resource=download&select=airports.csv) containing over 10,000 data points across four CSVs:
 
 - **`airlines.csv`** — Airline identifiers and info  
 - **`airports.csv`** — Coordinates and metadata of each airport  
 - **`airplanes.csv`** — Aircraft metadata (not central to this vis)  
 - **`routes.csv`** — Origin-destination routes for commercial airlines  
 
-_No data cleaning needed; data is already in usable form._
+_Data cleaning was minimal as no unusable data points are possible within the dataset. We simply reduced the columns of **`airports.csv`** and **`routes.csv`**._
 
 ## Visualization Description
 
@@ -36,7 +36,7 @@ _No data cleaning needed; data is already in usable form._
 ## Tech Stack
 
 - **D3.js v7**
-- **TopoJSON or GeoJSON** for rendering world map
+- **leaflet.js** for rendering background map
 - **HTML/CSS/JS** — Simple static frontend
 
 ## Running the Project
