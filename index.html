@@ -13,16 +13,20 @@
 #mapid { height: 800px; }
 </style>
 
-
 <script>
 
 // Initialize the map
-// [50, -0.1] are the latitude and longitude
-// 4 is the zoom
+// [35, -0.1] are the latitude and longitude
+// 2 is the zoom
 // mapid is the id of the div where the map will appear
-var mymap = L
-  .map('mapid')
-  .setView([35, -0.1], 2);
+var mymap = L.map('mapid', {
+  center: [35, -0.1],
+  zoom: 2,
+  maxBounds: [[-85, -180], [85, 180]],
+  maxBoundsViscosity: 1.0,
+  maxZoom: 12,
+  minZoom: 2
+});
 
 // Add a tile to the map = a background. Comes from OpenStreetmap
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -30,7 +34,6 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
   subdomains: 'abcd',
   maxZoom: 12
 }).addTo(mymap);
-
 
 
 </script>
