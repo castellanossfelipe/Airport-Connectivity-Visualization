@@ -11,7 +11,7 @@ This project uses proportional symbol mapping to visualize global airport connec
 
 ## Dataset
 
-We use a [Kaggle compilation of OpenFlights’ dataset] (https://www.kaggle.com/datasets/ahmadrafiee/airports-airlines-planes-and-routes-update-2024?resource=download&select=airports.csv) containing over 10,000 data points across four CSVs:
+We use a [Kaggle compilation of OpenFlights’ dataset](https://www.kaggle.com/datasets/ahmadrafiee/airports-airlines-planes-and-routes-update-2024?resource=download&select=airports.csv) containing over 10,000 data points across four CSVs:
 
 - **`airlines.csv`** — Airline identifiers and info  
 - **`airports.csv`** — Coordinates and metadata of each airport  
