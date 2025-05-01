@@ -5,17 +5,13 @@ Interactive world map showing airport connectivity using OpenFlights data and D3
 **By Charlie Ratliff & Felipe Castellanos**  
 Visualizing airports, airlines, planes, and commercial routes using data from [OpenFlights.org](https://openflights.org/).
 
----
-
 ## Overview
 
 This project uses proportional symbol mapping to visualize global airport connectivity. Each airport is represented by a bubble whose size reflects the number of outgoing routes, making it easy to identify major air travel hubs across continents.
 
----
-
 ## Dataset
 
-We use OpenFlights’ dataset containing over 10,000 data points across four CSVs:
+We use a [Kaggle compilation of OpenFlights’ dataset] (https://www.kaggle.com/datasets/ahmadrafiee/airports-airlines-planes-and-routes-update-2024?resource=download&select=airports.csv) containing over 10,000 data points across four CSVs:
 
 - **`airlines.csv`** — Airline identifiers and info  
 - **`airports.csv`** — Coordinates and metadata of each airport  
@@ -23,8 +19,6 @@ We use OpenFlights’ dataset containing over 10,000 data points across four CSV
 - **`routes.csv`** — Origin-destination routes for commercial airlines  
 
 _No data cleaning needed; data is already in usable form._
-
----
 
 ## Visualization Description
 
@@ -39,15 +33,11 @@ _No data cleaning needed; data is already in usable form._
 - **Grayscale Mode:** Optional for visual accessibility.
 - **Responsive Layout & Readable Labels:** Works on various screen sizes.
 
----
-
 ## Tech Stack
 
 - **D3.js v7**
 - **TopoJSON or GeoJSON** for rendering world map
 - **HTML/CSS/JS** — Simple static frontend
-
----
 
 ## Running the Project
 
@@ -63,8 +53,6 @@ _No data cleaning needed; data is already in usable form._
    ```
 
 3. Open `index.html` in your browser.
-
----
 
 ## License
 
