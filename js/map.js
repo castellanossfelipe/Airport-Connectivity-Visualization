@@ -74,43 +74,67 @@ document.addEventListener('DOMContentLoaded', function() {
         {text: "501+", color: "#084594"}
       ];
       
-      legendItems.forEach(item => {
-        const legendRow = legend.append("div")
-          .style("display", "flex")
-          .style("align-items", "center")
-          .style("margin-bottom", "5px");
-        
-        legendRow.append("div")
-          .style("width", "20px")
-          .style("height", "20px")
-          .style("background", item.color)
-          .style("margin-right", "5px")
-          .style("border-radius", "50%");
-        
-        legendRow.append("span")
-          .text(item.text);
-      });
-      
-      // Size example in legend
-      legend.append("h3")
-        .text("Airport Size")
-        .style("margin", "15px 0 10px 0")
-        .style("font-size", "16px");
-      
-      const sizeLegend = legend.append("div")
+      // Container to align items vertically
+      const legendContainer = legend.append("div")
         .style("display", "flex")
-        .style("align-items", "center")
-        .style("margin-bottom", "5px");
-      
-      sizeLegend.append("div")
-        .style("width", "30px")
-        .style("height", "30px")
-        .style("border", "2px solid #666")
-        .style("border-radius", "50%")
-        .style("margin-right", "10px");
-      
-      sizeLegend.append("span")
-        .text("More connections");
+        .style("flex-direction", "column")
+        .style("gap", "6px")
+        .style("align-items", "flex-start");
+
+        let selectedRange = null; // Track currently selected filter
+
+        legendItems.forEach(item => {
+          const [minText, maxText] = item.text.includes('+')
+            ? [parseInt(item.text), Infinity]
+            : item.text.split('-').map(d => parseInt(d));
+        
+          const minCount = minText || 1;
+          const maxCount = maxText || Infinity;
+        
+          const radius = sizeScale(minCount);
+          const diameter = 2 * radius;
+        
+          const row = legendContainer.append("div")
+            .attr("class", "legend-row")
+            .style("display", "flex")
+            .style("align-items", "center")
+            .style("cursor", "pointer")
+            .style("padding", "4px 6px")
+            .style("border-radius", "4px")
+            .on("click", function () {
+              // Toggle selection
+              const isSame = selectedRange?.[0] === minCount && selectedRange?.[1] === maxCount;
+              selectedRange = isSame ? null : [minCount, maxCount];
+        
+              // Style legend rows based on selection
+              legendContainer.selectAll(".legend-row")
+                .style("background-color", "transparent");
+        
+              d3.select(this)
+                .style("background-color", isSame ? "transparent" : "#eee");
+        
+              // Update visible circles
+              airportBubbles
+                .style("display", d => {
+                  const count = d["Destination Count"];
+                  if (!selectedRange) return "block";
+                  return count >= selectedRange[0] && count <= selectedRange[1] ? "block" : "none";
+                });
+            });
+        
+          row.append("div")
+            .style("width", `${diameter}px`)
+            .style("height", `${diameter}px`)
+            .style("background", item.color)
+            .style("border-radius", "50%")
+            .style("margin-right", "10px")
+            .style("border", "1px solid #444")
+            .style("flex-shrink", "0");
+        
+          row.append("span")
+            .style("font-size", "13px")
+            .text(item.text);
+      });
       
       // Add filtering control
       const controlDiv = d3.select("body").append("div")
@@ -130,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .data([1, 5, 10, 25, 50, 100, 300, 500])
         .join("option")
         .attr("value", d => d)
-        .text(d => d + "+ connections");
+        .text(d => d + "+ outgoing flights");
       
       // Add circles for each airport:
       const airportBubbles = d3.select("#mapid")
@@ -150,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
               .style("stroke-width", 2);
               
             tooltip.transition()
-              .duration(200)
+              .duration(100)
               .style("opacity", 0.9);
               
             tooltip.html(`<strong>${d["Source Airport"]}</strong><br/>
@@ -165,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
               .style("stroke-width", 1);
               
             tooltip.transition()
-              .duration(500)
+              .duration(100)
               .style("opacity", 0);
           });
       
