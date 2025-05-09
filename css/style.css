@@ -1,3 +1,109 @@
-#mapid {
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  #mapid {
     height: 800px;
-}
+    width: 100%;
+    position: relative;
+    z-index: 1; /* Ensure map is behind UI elements */
+  }
+  
+  .title-container {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    text-align: center;
+  }
+  
+  .tooltip {
+    position: absolute;
+    padding: 8px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    pointer-events: none;
+    font-size: 14px;
+    z-index: 1500;
+    opacity: 0;
+    transition: opacity 0.2s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .legend {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    max-width: 200px;
+  }
+  
+  .control-panel {
+    position: absolute;
+    top: 20px;
+    left: 60px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+  }
+  
+  /* Improve circle hover effects */
+  circle {
+    cursor: pointer;
+    transition: fill-opacity 0.2s, stroke-width 0.2s;
+  }
+  
+  /* Status message for loading and errors */
+  #status-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 2000;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  /* Media query for responsive design */
+  @media (max-width: 768px) {
+    .legend {
+      bottom: 20px;
+      top: auto;
+      right: 20px;
+      max-width: 150px;
+      font-size: 12px;
+    }
+    
+    .control-panel {
+      top: 80px;
+      left: 20px;
+      font-size: 12px;
+    }
+  }
