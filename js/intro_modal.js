@@ -4,18 +4,20 @@ function createIntroModal() {
   
     modal.innerHTML = `
       <div class="intro-content">
-        <h2>Welcome to the Global Airport Connectivity Map</h2>
+        <h2>🌍 Explore Global Air Travel Like Never Before</h2>
         <p>
-          This interactive map visualizes global airport traffic as of 2024.
-          Each bubble represents an airport, with its size and color reflecting the number of outgoing routes.
+        Dive into the world of air travel. This map brings to life how airports connect the globe. 
+        Every bubble shows an airport — the bigger and darker, the busier it is.
         </p>
         <ul>
-          <li>📍 <strong>Zoom and pan</strong> to explore specific regions.</li>
-          <li>🖱️ <strong>Hover</strong> over bubbles to see airport details.</li>
-          <li>🎨 <strong>Use the legend</strong> or the <strong>filter</strong> to view data by traffic volume.</li>
-          <li>♿ <strong>Fully accessible</strong> with keyboard and screen reader support.</li>
+          <ul>
+          <li>🔍 <strong>Zoom and pan</strong> to travel across continents</li>
+          <li>🛫 <strong>Hover</strong> to reveal airport names and stats</li>
+          <li>🎯 <strong>Filter by traffic</strong> to find major hubs</li>
+          <li>♿ <strong>Keyboard & screen reader friendly</strong></li>
         </ul>
-        <button id="intro-close-btn">Start Exploring</button>
+        </ul>
+        <button id="intro-close-btn" class="intro-button">Start Exploring ✈️</button>
       </div>
     `;
   

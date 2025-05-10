@@ -3890,10 +3890,10 @@ Airport ID,Name,City,Country,IATA,ICAO,Latitude,Longitude,Altitude,Timezone,DST,
 4111,Roshchino International Airport,Tyumen,Russia,TJM,USTR,57.189601898199996,65.3243026733,378,5,N,Asia/Yekaterinburg,airport,OurAirports
 4112,Akron Canton Regional Airport,Akron,United States,CAK,KCAK,40.916099548339844,-81.44219970703125,1228,-5,A,America/New_York,airport,OurAirports
 4113,Huntsville International Carl T Jones Field,Huntsville,United States,HSV,KHSV,34.637199401855,-86.775100708008,629,-6,A,America/Chicago,airport,OurAirports
-4114,Mid Ohio Valley Regional Airport,PARKERSBURG,United States,PKB,KPKB,39.34510040283203,-81.43920135498047,858,-5,A,America/New_York,airport,OurAirports
-4115,Montgomery Regional (Dannelly Field) Airport,MONTGOMERY,United States,MGM,KMGM,32.30059814,-86.39399719,221,-6,A,America/Chicago,airport,OurAirports
-4116,Tri-Cities Regional TN/VA Airport,BRISTOL,United States,TRI,KTRI,36.475201,-82.40740100000001,1519,-5,A,America/New_York,airport,OurAirports
-4117,Barkley Regional Airport,PADUCAH,United States,PAH,KPAH,37.06079864501953,-88.7738037109375,410,-6,A,America/Chicago,airport,OurAirports
+4114,Mid Ohio Valley Regional Airport,Parkersburg,United States,PKB,KPKB,39.34510040283203,-81.43920135498047,858,-5,A,America/New_York,airport,OurAirports
+4115,Montgomery Regional (Dannelly Field) Airport,Montgomery,United States,MGM,KMGM,32.30059814,-86.39399719,221,-6,A,America/Chicago,airport,OurAirports
+4116,Tri-Cities Regional TN/VA Airport,Bristol,United States,TRI,KTRI,36.475201,-82.40740100000001,1519,-5,A,America/New_York,airport,OurAirports
+4117,Barkley Regional Airport,Paducah,United States,PAH,KPAH,37.06079864501953,-88.7738037109375,410,-6,A,America/Chicago,airport,OurAirports
 4119,Djibouti-Ambouli Airport,Djibouti,Djibouti,JIB,HDAM,11.547300338745115,43.15950012207031,49,3,U,Africa/Djibouti,airport,OurAirports
 4120,Haikou Meilan International Airport,Haikou,China,HAK,ZJHK,19.93490028381348,110.45899963378906,75,8,U,Asia/Shanghai,airport,OurAirports
 4121,Mafia Island Airport,Mafia Island,Tanzania,MFA,HTMA,-7.917478,39.668502000000004,60,3,U,Africa/Dar_es_Salaam,airport,OurAirports
