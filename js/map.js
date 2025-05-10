@@ -50,28 +50,6 @@ document.addEventListener('DOMContentLoaded', function() {
       const sizeScale = d3.scaleSqrt()
         .domain([1, d3.max(airportData, d => d["Destination Count"])])
         .range([3, 25]);
-      
-      createTooltip(); // defined in tooltip.js
-      
-      // Add filtering control
-      const controlDiv = d3.select("body").append("div")
-        .attr("class", "control-panel");
-      
-      controlDiv.append("label")
-        .text("Filter airports with ")
-        .append("select")
-        .attr("id", "min-connections")
-        .on("change", function() {
-          const minConnections = +this.value;
-          
-          airportBubbles
-            .style("display", d => d["Destination Count"] >= minConnections ? "block" : "none");
-        })
-        .selectAll("option")
-        .data([1, 5, 10, 25, 50, 100, 300, 500])
-        .join("option")
-        .attr("value", d => d)
-        .text(d => d + "+ outgoing flights");
 
       // Add circles for each airport:
       const airportBubbles = d3.select("#mapid")
@@ -100,7 +78,38 @@ document.addEventListener('DOMContentLoaded', function() {
             hideTooltip();
           });
       
+      createTooltip();
       createLegend(sizeScale, airportBubbles); // defined in legend.js
+      
+      // Add filtering control below legend
+      const controlDiv = d3.select(".legend")
+        .append("div")
+        .attr("class", "control-panel")
+        .style("margin-top", "12px")
+        .style("width", "100%");
+
+      controlDiv.append("label")
+        .style("font-size", "13px")
+        .style("display", "block")
+        .style("margin-bottom", "4px")
+        .text("Filter airports with:");
+
+      controlDiv.append("select")
+        .attr("id", "min-connections")
+        .style("width", "100%")
+        .style("padding", "4px")
+        .style("font-size", "13px")
+        .on("change", function() {
+          const minConnections = +this.value;
+        
+          airportBubbles
+            .style("display", d => d["Destination Count"] >= minConnections ? "block" : "none");
+        })
+        .selectAll("option")
+        .data([1, 5, 10, 25, 50, 100, 300, 500])
+        .join("option")
+        .attr("value", d => d)
+        .text(d => d + "+ outgoing flights");
       
       // Function to update circle positions and sizes on map events
       function update() {

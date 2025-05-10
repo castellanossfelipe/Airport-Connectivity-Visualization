@@ -7,6 +7,13 @@ function createLegend(sizeScale, airportBubbles) {
     .style("margin", "0 0 10px 0")
     .style("font-size", "16px");
 
+    legend.append("p")
+        .text("Click a bubble group to filter by size.")
+        .style("margin", "0 0 12px 0")
+        .style("font-size", "12px")
+        .style("color", "#ccc")
+        .style("line-height", "1.4");
+
     const legendItems = [
     {text: "1-25", color: "#c6dbef"},
     {text: "26-75", color: "#9ecae1"},
