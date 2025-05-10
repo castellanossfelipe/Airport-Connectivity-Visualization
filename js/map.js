@@ -111,25 +111,26 @@ document.addEventListener('DOMContentLoaded', function() {
         .attr("value", d => d)
         .text(d => d + "+ outgoing flights");
       
-      // Function to update circle positions and sizes on map events
       function update() {
         airportBubbles
           .attr("cx", d => mymap.latLngToLayerPoint([d.Latitude, d.Longitude]).x)
           .attr("cy", d => mymap.latLngToLayerPoint([d.Latitude, d.Longitude]).y)
           .attr("r", d => {
-            // Dynamically adjust size based on zoom level
-            const zoomFactor = mymap.getZoom() / 12; // Normalize by max zoom
+            const zoomFactor = mymap.getZoom() / 12;
             const baseSize = sizeScale(d["Destination Count"]);
-            // Slightly increase size at lower zoom levels for visibility
             const adjustedSize = baseSize * (1 + (1 - zoomFactor) * 0.5);
             return adjustedSize;
           });
       }
-      
-      // When the map is zoomed or moved, update the bubbles
-      mymap.on("zoom viewreset moveend", update);
-      
-      // Initial update
+    
+      let updateTimeout;
+      function throttledUpdate() {
+        clearTimeout(updateTimeout);
+        updateTimeout = setTimeout(update, 10);
+      }
+    
+      mymap.on("zoom viewreset moveend", throttledUpdate);
+
       update();
       createIntroModal();
     }

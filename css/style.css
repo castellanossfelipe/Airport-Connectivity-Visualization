@@ -10,7 +10,6 @@ html, body {
   z-index: 1;
   }
 
-
   .intro-modal {
     position: fixed;
     top: 0;
@@ -27,7 +26,7 @@ html, body {
   }
   
   .intro-content {
-    background: #111;
+    background: #1a1a1a;
     color: #f0f0f0;
     padding: 40px 48px;
     border-radius: 12px;
@@ -43,6 +42,7 @@ html, body {
     margin-bottom: 16px;
     color: #ffffff;
     letter-spacing: 0.5px;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
   }
   
   .intro-content p {
@@ -70,10 +70,11 @@ html, body {
     border: none;
     padding: 12px 20px;
     border-radius: 6px;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 15px;
     cursor: pointer;
     transition: background 0.2s ease, transform 0.2s ease;
+    animation: pulseIn 0.5s ease-in;
   }
   
   #intro-close-btn:hover {
@@ -81,7 +82,7 @@ html, body {
     transform: translateY(-1px);
   }
   
-  /* Optional animations */
+  /* Animations */
   @keyframes fadeIn {
     from { opacity: 0 }
     to { opacity: 1 }
@@ -90,6 +91,11 @@ html, body {
   @keyframes slideUp {
     from { transform: translateY(20px); opacity: 0 }
     to { transform: translateY(0); opacity: 1 }
+  }
+  
+  @keyframes pulseIn {
+    0% { transform: scale(0.95); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
   }  
   
   .title-container {
