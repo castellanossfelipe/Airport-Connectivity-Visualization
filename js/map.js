@@ -2,9 +2,9 @@
 document.addEventListener('DOMContentLoaded', function() {
   try {
     // Initialize the map
-    var mymap = L.map('mapid', {
-      center: [20, 0], // More central global view
-      zoom: 2,
+    const mymap = L.map('mapid', {
+      center: [40, -100],
+      zoom: 4,
       maxBounds: [[-85, -180], [85, 180]],
       maxBoundsViscosity: 1.0,
       maxZoom: 12,
@@ -20,11 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add a svg layer to the map
     L.svg().addTo(mymap);
-    
-    // Create a tooltip div
-    const tooltip = d3.select("body").append("div")
-      .attr("class", "tooltip")
-      .style("opacity", 0);
     
     // Update status
     document.getElementById('status-message').textContent = 'Loading airport data...';
@@ -56,85 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .domain([1, d3.max(airportData, d => d["Destination Count"])])
         .range([3, 25]);
       
-      // Create a legend
-      const legend = d3.select("body").append("div")
-        .attr("class", "legend");
-      
-      legend.append("h3")
-        .text("Outgoing Flights")
-        .style("margin", "0 0 10px 0")
-        .style("font-size", "16px");
-      
-      const legendItems = [
-        {text: "1-25", color: "#c6dbef"},
-        {text: "26-75", color: "#9ecae1"},
-        {text: "76-150", color: "#6baed6"},
-        {text: "151-300", color: "#4292c6"},
-        {text: "301-500", color: "#2171b5"},
-        {text: "501+", color: "#084594"}
-      ];
-      
-      // Container to align items vertically
-      const legendContainer = legend.append("div")
-        .style("display", "flex")
-        .style("flex-direction", "column")
-        .style("gap", "6px")
-        .style("align-items", "flex-start");
-
-        let selectedRange = null; // Track currently selected filter
-
-        legendItems.forEach(item => {
-          const [minText, maxText] = item.text.includes('+')
-            ? [parseInt(item.text), Infinity]
-            : item.text.split('-').map(d => parseInt(d));
-        
-          const minCount = minText || 1;
-          const maxCount = maxText || Infinity;
-        
-          const radius = sizeScale(minCount);
-          const diameter = 2 * radius;
-        
-          const row = legendContainer.append("div")
-            .attr("class", "legend-row")
-            .style("display", "flex")
-            .style("align-items", "center")
-            .style("cursor", "pointer")
-            .style("padding", "4px 6px")
-            .style("border-radius", "4px")
-            .on("click", function () {
-              // Toggle selection
-              const isSame = selectedRange?.[0] === minCount && selectedRange?.[1] === maxCount;
-              selectedRange = isSame ? null : [minCount, maxCount];
-        
-              // Style legend rows based on selection
-              legendContainer.selectAll(".legend-row")
-                .style("background-color", "transparent");
-        
-              d3.select(this)
-                .style("background-color", isSame ? "transparent" : "#eee");
-        
-              // Update visible circles
-              airportBubbles
-                .style("display", d => {
-                  const count = d["Destination Count"];
-                  if (!selectedRange) return "block";
-                  return count >= selectedRange[0] && count <= selectedRange[1] ? "block" : "none";
-                });
-            });
-        
-          row.append("div")
-            .style("width", `${diameter}px`)
-            .style("height", `${diameter}px`)
-            .style("background", item.color)
-            .style("border-radius", "50%")
-            .style("margin-right", "10px")
-            .style("border", "1px solid #444")
-            .style("flex-shrink", "0");
-        
-          row.append("span")
-            .style("font-size", "13px")
-            .text(item.text);
-      });
+      createTooltip(); // defined in tooltip.js
       
       // Add filtering control
       const controlDiv = d3.select("body").append("div")
@@ -155,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .join("option")
         .attr("value", d => d)
         .text(d => d + "+ outgoing flights");
-      
+
       // Add circles for each airport:
       const airportBubbles = d3.select("#mapid")
         .select("svg")
@@ -172,26 +89,18 @@ document.addEventListener('DOMContentLoaded', function() {
             d3.select(this)
               .style("fill-opacity", 1)
               .style("stroke-width", 2);
-              
-            tooltip.transition()
-              .duration(100)
-              .style("opacity", 0.9);
-              
-            tooltip.html(`<strong>${d["IATA Code"]}</strong><br/>
-                        Outgoing Flights: ${d["Destination Count"]}<br/>
-                        Location: ${d.Latitude.toFixed(2)}°, ${d.Longitude.toFixed(2)}°`)
-              .style("left", (event.pageX + 10) + "px")
-              .style("top", (event.pageY - 28) + "px");
+          
+            showTooltip(event, d);
           })
           .on("mouseout", function() {
             d3.select(this)
               .style("fill-opacity", 0.7)
               .style("stroke-width", 1);
-              
-            tooltip.transition()
-              .duration(100)
-              .style("opacity", 0);
+          
+            hideTooltip();
           });
+      
+      createLegend(sizeScale, airportBubbles); // defined in legend.js
       
       // Function to update circle positions and sizes on map events
       function update() {
@@ -213,6 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Initial update
       update();
+      createIntroModal();
     }
   } catch (error) {
     console.error("Error initializing map:", error);
