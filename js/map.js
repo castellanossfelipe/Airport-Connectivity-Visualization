@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .selectAll("circle")
         .data(airportData)
         .join("circle")
-          .attr("airport-code", d => d["Source Airport"])
+          .attr("airport-code", d => d["IATA Code"])
           .style("fill", d => colorScale(d["Destination Count"]))
           .style("stroke", d => d3.color(colorScale(d["Destination Count"])).darker())
           .style("stroke-width", 1)
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
               .duration(100)
               .style("opacity", 0.9);
               
-            tooltip.html(`<strong>${d["Source Airport"]}</strong><br/>
+            tooltip.html(`<strong>${d["IATA Code"]}</strong><br/>
                         Outgoing Flights: ${d["Destination Count"]}<br/>
                         Location: ${d.Latitude.toFixed(2)}°, ${d.Longitude.toFixed(2)}°`)
               .style("left", (event.pageX + 10) + "px")
