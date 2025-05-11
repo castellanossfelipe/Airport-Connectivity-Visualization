@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .data([1, 5, 10, 25, 50, 100, 300, 500])
         .join("option")
         .attr("value", d => d)
-        .text(d => d + "+ outgoing flights");
+        .text(d => d + "+ destinations");
       
       function update() {
         airportBubbles

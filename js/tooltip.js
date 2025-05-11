@@ -11,7 +11,7 @@ function createTooltip() {
       tooltip.html(`
         <div><strong>${d["Name"]} (${d["IATA Code"]})</strong></div>
         <div><em>${d["City"]}</em></div>
-        <div>✈️ ${d["Destination Count"]} outgoing flights</div>
+        <div>✈️ ${d["Destination Count"]} destinations</div>
       `)
       .style("left", (event.pageX + 12) + "px")
       .style("top", (event.pageY - 32) + "px");

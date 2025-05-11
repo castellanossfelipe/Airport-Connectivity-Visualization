@@ -3,7 +3,7 @@ function createLegend(sizeScale, airportBubbles) {
     .attr("class", "legend");
 
     legend.append("h3")
-    .text("Outgoing Flights")
+    .text("Number of Destinations")
     .style("margin", "0 0 10px 0")
     .style("font-size", "16px");
 
@@ -51,25 +51,32 @@ function createLegend(sizeScale, airportBubbles) {
         .style("padding", "4px 6px")
         .style("border-radius", "4px")
         .on("click", function () {
-        // Toggle selection
-        const isSame = selectedRange?.[0] === minCount && selectedRange?.[1] === maxCount;
-        selectedRange = isSame ? null : [minCount, maxCount];
-
-        // Style legend rows based on selection
-        legendContainer.selectAll(".legend-row")
-            .style("background-color", "transparent");
-
-        d3.select(this)
-            .style("background-color", isSame ? "transparent" : "rgba(255, 255, 255, 0.15)");
-
-        // Update visible circles
-        airportBubbles
-            .style("display", d => {
-            const count = d["Destination Count"];
-            if (!selectedRange) return "block";
-            return count >= selectedRange[0] && count <= selectedRange[1] ? "block" : "none";
-            });
-        });
+            const isSame = selectedRange?.[0] === minCount && selectedRange?.[1] === maxCount;
+            selectedRange = isSame ? null : [minCount, maxCount];
+          
+            legendContainer.selectAll(".legend-row")
+              .style("background-color", "transparent");
+          
+            d3.select(this)
+              .style("background-color", isSame ? "transparent" : "rgba(255, 255, 255, 0.15)");
+          
+            airportBubbles
+              .style("display", d => {
+                const count = d["Destination Count"];
+                if (!selectedRange) return "block";
+                return count >= selectedRange[0] && count <= selectedRange[1] ? "block" : "none";
+              });
+          
+            // Disable and reset dropdown when filtering via legend
+            const dropdown = d3.select("#min-connections");
+            if (selectedRange) {
+                dropdown.attr("title", "Disabled while a legend filter is active");
+                dropdown.property("selectedIndex", 0)
+                      .attr("disabled", true);
+            } else {
+              dropdown.attr("disabled", null);
+            }
+        });          
 
     row.append("div")
         .style("width", `${diameter}px`)
