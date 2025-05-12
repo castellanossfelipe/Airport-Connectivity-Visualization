@@ -179,7 +179,19 @@ html, body {
   /* Improve circle hover effects */
   circle {
     cursor: pointer;
-    transition: fill-opacity 0.2s, stroke-width 0.2s;
+    transition: fill-opacity 0.2s, stroke-width 0.2s, filter 0.2s;
+  }
+  
+  /* Focus styles for airport bubbles */
+  circle:focus {
+    outline: none; /* Remove default browser outline */
+    stroke-width: 3px;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.9));
+  }
+  
+  /* Ensure focus is visible even with color changes */
+  circle:focus {
+    stroke: #fff !important;
   }
   
   /* Status message for loading and errors */
@@ -249,3 +261,22 @@ html, body {
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
   }  
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    circle:focus {
+      stroke: #000;
+      stroke-width: 4px;
+    }
+  }
+  
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    circle {
+      transition: none;
+    }
+    
+    .intro-modal, .intro-content, #intro-close-btn {
+      animation: none;
+    }
+  }
