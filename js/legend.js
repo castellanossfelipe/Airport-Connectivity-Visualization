@@ -2,7 +2,7 @@ function createLegend(sizeScale, airportBubbles) {
     const legend = d3.select("body").append("div")
     .attr("class", "legend");
 
-    legend.append("h3")
+    legend.append("h2")
     .text("Number of Destinations")
     .style("margin", "0 0 10px 0")
     .style("font-size", "16px");
@@ -30,7 +30,7 @@ function createLegend(sizeScale, airportBubbles) {
     .style("gap", "6px")
     .style("align-items", "flex-start");
 
-    let selectedRange = null; // Track currently selected filter
+    let selectedRange = null;
 
     legendItems.forEach(item => {
     const [minText, maxText] = item.text.includes('+')
@@ -70,7 +70,6 @@ function createLegend(sizeScale, airportBubbles) {
             // Disable and reset dropdown when filtering via legend
             const dropdown = d3.select("#min-connections");
             if (selectedRange) {
-                dropdown.attr("title", "Disabled while a legend filter is active");
                 dropdown.property("selectedIndex", 0)
                       .attr("disabled", true);
             } else {

@@ -88,13 +88,16 @@ document.addEventListener('DOMContentLoaded', function() {
         .style("margin-top", "12px")
         .style("width", "100%");
 
-      controlDiv.append("label")
+        controlDiv.append("label")
+        .attr("for", "min-connections")
         .style("font-size", "13px")
         .style("display", "block")
         .style("margin-bottom", "4px")
         .text("Filter airports with:");
-
+      
       controlDiv.append("select")
+        .attr("id", "min-connections")
+        .attr("aria-label", "Minimum number of destinations to display")      
         .attr("id", "min-connections")
         .style("width", "100%")
         .style("padding", "4px")
