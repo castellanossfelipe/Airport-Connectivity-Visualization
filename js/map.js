@@ -136,9 +136,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
       update();
       createIntroModal();
+      document.getElementById('show-intro-btn').addEventListener('click', createIntroModal);
     }
   } catch (error) {
     console.error("Error initializing map:", error);
     document.getElementById('status-message').textContent = 'Error loading map: ' + error.message;
   }
+  
 });

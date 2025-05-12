@@ -20,15 +20,22 @@
   <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
+  <header>
   <div class="title-container">
     <h1>Global Airport Connectivity Map (2024)</h1>
   </div>
+  </header>
   
+  <main id="main-content">
   <!-- Create an element where the map will take place -->
   <div id="mapid"></div>
+
+  <button id="show-intro-btn" class="reopen-intro-button"><strong>?</strong></button>
+
   
   <!-- Status message for loading and errors -->
   <div id="status-message">Loading map and airport data...</div>
+  </main>
   
   <!-- Load your custom JS - Updated for your folder structure -->
   <script src="js/tooltip.js"></script>

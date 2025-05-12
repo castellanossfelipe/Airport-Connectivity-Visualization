@@ -1,5 +1,12 @@
 function createIntroModal() {
-  const modal = document.createElement('div');
+  let modal = document.querySelector('.intro-modal');
+
+  if (modal) {
+    modal.style.display = 'flex'; // or 'block', depending on your CSS
+    return;
+  }
+
+  modal = document.createElement('div');
   modal.className = 'intro-modal';
   modal.setAttribute('role', 'dialog');
   modal.setAttribute('aria-modal', 'true');
