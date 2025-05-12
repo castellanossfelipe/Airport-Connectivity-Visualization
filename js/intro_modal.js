@@ -2,7 +2,8 @@ function createIntroModal() {
   let modal = document.querySelector('.intro-modal');
 
   if (modal) {
-    modal.style.display = 'flex'; // or 'block', depending on your CSS
+    modal.style.display = 'flex';
+    focusFirstElement(modal);
     return;
   }
 
@@ -11,6 +12,7 @@ function createIntroModal() {
   modal.setAttribute('role', 'dialog');
   modal.setAttribute('aria-modal', 'true');
   modal.setAttribute('aria-labelledby', 'intro-title');
+  modal.setAttribute('tabindex', '-1');
 
   modal.innerHTML = `
     <div class="intro-content">
@@ -31,12 +33,59 @@ function createIntroModal() {
 
   document.body.appendChild(modal);
 
+  // Store the previously focused element
+  const previouslyFocused = document.activeElement;
+
   const closeModal = () => {
     modal.style.display = 'none';
+    // Return focus to previously focused element
+    if (previouslyFocused && previouslyFocused !== document.body) {
+      previouslyFocused.focus();
+    }
   };
 
+  // Add tab trapping
+  const focusableElements = modal.querySelectorAll(
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  );
+  const firstElement = focusableElements[0];
+  const lastElement = focusableElements[focusableElements.length - 1];
+
+  const trapTab = (e) => {
+    if (e.key === 'Tab') {
+      if (e.shiftKey) {
+        // Shift + Tab
+        if (document.activeElement === firstElement) {
+          lastElement.focus();
+          e.preventDefault();
+        }
+      } else {
+        // Tab
+        if (document.activeElement === lastElement) {
+          firstElement.focus();
+          e.preventDefault();
+        }
+      }
+    }
+  };
+
+  const focusFirstElement = (modalElement) => {
+    const focusable = modalElement.querySelector('#intro-close-btn');
+    if (focusable) {
+      focusable.focus();
+    }
+  };
+
+  // Event listeners
   document.getElementById('intro-close-btn').addEventListener('click', closeModal);
+  
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeModal();
+    if (modal.style.display === 'flex') {
+      trapTab(e);
+    }
   });
+
+  // Focus the first element when modal opens
+  focusFirstElement(modal);
 }
