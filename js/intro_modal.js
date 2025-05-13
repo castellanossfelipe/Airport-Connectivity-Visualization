@@ -25,7 +25,7 @@ function createIntroModal() {
         <li><strong>Zoom and pan</strong> to travel across continents</li>
         <li><strong>Hover</strong> to reveal airport names and stats</li>
         <li><strong>Filter by traffic</strong> to find major hubs</li>
-        <li><strong>Keyboard & screen reader friendly</strong></li>
+        <li>Use the <strong>tab</strong> and <strong>space</strong> keys for accesible use</li>
       </ul>
       <button id="intro-close-btn" class="intro-button">Start Exploring ✈️</button>
     </div>
@@ -36,13 +36,20 @@ function createIntroModal() {
   // Store the previously focused element
   const previouslyFocused = document.activeElement;
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Escape') closeModal();
+    if (modal.style.display === 'flex') trapTab(e);
+  };
+  
+  document.addEventListener('keydown', handleKeyDown, true);
+  
   const closeModal = () => {
     modal.style.display = 'none';
-    // Return focus to previously focused element
     if (previouslyFocused && previouslyFocused !== document.body) {
       previouslyFocused.focus();
     }
-  };
+    document.removeEventListener('keydown', handleKeyDown, true);
+  };  
 
   // Add tab trapping
   const focusableElements = modal.querySelectorAll(
