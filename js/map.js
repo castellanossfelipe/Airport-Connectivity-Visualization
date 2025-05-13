@@ -102,9 +102,9 @@ document.addEventListener('DOMContentLoaded', function() {
               .style("fill-opacity", 1)
               .style("stroke-width", 3)
               .style("filter", "drop-shadow(0 0 2px rgba(255, 255, 255, 0.8))");
-            
-            showTooltip(event, d);
-          })
+          
+            showTooltip("keyboard", d); // ← consistent fixed positioning
+          })          
           .on("blur", function() {
             d3.select(this)
               .style("fill-opacity", 0.7)
@@ -117,10 +117,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const currentAirport = d3.select(this);
             
             switch(event.key) {
-              case 'Enter':
+             case 'Enter':
+             case 'Enter':
               case ' ':
                 event.preventDefault();
-                showTooltip(event, d);
+                showTooltip("keyboard", d); // ← use fixed placement for keyboard nav
                 break;
                 
               case 'Escape':
@@ -316,7 +317,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (bestMatch) {
           bestMatch.focus();
-        }
+          const datum = d3.select(bestMatch).datum();
+          
+          // Delay tooltip so it positions after focus/rendering updates
+          setTimeout(() => {
+            showTooltip("keyboard", datum);
+          }, 10); // 10ms is usually enough
+        }                
       }
       
       function update() {
